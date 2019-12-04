@@ -48,9 +48,10 @@ reviewerName VARCHAR(255) NOT NULL,
 summary text NOT NULL, 
 unixReviewTime INT NOT NULL, 
 PRIMARY KEY (id) );
+load data local infile "kindle_reviews.csv" into table kindle_reviews fields terminated by ',' enclosed by '"' escaped by '"' lines terminated by '\n' ignore 1 rows;
 EOF
 
-load data local infile "kindle_reviews.csv" into table kindle_reviews fields terminated by ',' enclosed by '"' escaped by '"' lines terminated by '\n' ignore 1 rows;
+# load data local infile "kindle_reviews.csv" into table kindle_reviews fields terminated by ',' enclosed by '"' escaped by '"' lines terminated by '\n' ignore 1 rows;
 # create database book_reviews
 # use book_reviews
 
