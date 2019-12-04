@@ -33,6 +33,27 @@ cd ~
 sudo service mysql restart
 
 
-mysql -u root
-create database book_reviews
-use book_reviews
+mysql -u root <<'EOF'
+create database book_reviews;
+use book_reviews;
+CREATE TABLE kindle_reviews( 
+id INT NOT NULL AUTO_INCREMENT, 
+asin VARCHAR(255) NOT NULL, 
+helpful text NOT NULL, 
+overall INT NOT NULL, 
+reviewText text NOT NULL,  
+reviewTime VARCHAR(255) NOT NULL,  
+reviewerID VARCHAR(255) NOT NULL,  
+reviewerName VARCHAR(255) NOT NULL,  	
+summary text NOT NULL, 
+unixReviewTime INT NOT NULL, 
+PRIMARY KEY (id) );
+EOF
+
+load data local infile "kindle_reviews.csv" into table kindle_reviews fields terminated by ',' enclosed by '"' escaped by '"' lines terminated by '\n' ignore 1 rows;
+# create database book_reviews
+# use book_reviews
+
+
+#chmod 755 installmysql.sh
+#./installmysql.sh
