@@ -48,6 +48,7 @@ mongoimport --db mongo_database --collection kindle_metadata --file meta_Kindle_
 mongo <<EOF
 use mongo_database
 db.createCollection('logs')
+quit()
 EOF
 
 
