@@ -27,9 +27,28 @@ sudo apt-get install -y mongodb-org
 
 sudo service mongod start
 
-# sudo sed -i "s/.*bindIp.*/  bindIp = 0.0.0.0/" /etc/mongod.conf
+sudo sed -i "s/.*bindIp.*/  bindIp = 0.0.0.0/" /etc/mongod.conf
 
+sudo service mongod restart
+
+#mongo  
+
+# sudo systemctl enable mongod
 # sudo service mongod restart
+
+
+
+mongoimport --db mongo_database --collection kindle_metadata --file meta_Kindle_Store.json --legacy
+
+#create log files also. how to wrtie command to mongo shell?
+#create collection logs
+#db.createCollection("logs")
+
+
+mongo <<EOF
+use mongo_database
+db.createCollection('logs')
+EOF
 
 
 
@@ -38,3 +57,5 @@ sudo service mongod start
 
 
 
+
+#db.kindle_metadata.find({})
