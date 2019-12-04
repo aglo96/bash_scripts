@@ -30,6 +30,8 @@ sudo service mongod start
 # sudo systemctl enable mongod
 # sudo service mongod restart
 
+echo "setting mongo config"
+
 sudo sed -i "s/.*bindIp.*/  bindIp: 0.0.0.0/" /etc/mongod.conf
 
 sudo service mongod restart
@@ -37,7 +39,7 @@ sudo service mongod restart
 
 
 
-
+echo "importing json file into mongodb"
 
 mongoimport --db mongo_database --collection kindle_metadata --file meta_Kindle_Store.json --legacy
 
