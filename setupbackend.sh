@@ -4,8 +4,8 @@ cd ~
 sudo apt-get update
 git clone https://github.com/skimkoh/bigdata-goodreads.git
 
-sudo apt-get install nginx
-sudo apt-get install gunicorn3
+sudo apt-get -y install nginx 
+sudo apt-get -y install gunicorn3
 
 echo "Setting up nginx"
 sudo chmod o+rw /etc/nginx/sites-enabled
@@ -28,7 +28,7 @@ sudo service nginx restart
 
 
 cd bigdata-goodreads/backend
-sudo apt-get install python3-venv
+sudo apt-get -y install python3-venv
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
