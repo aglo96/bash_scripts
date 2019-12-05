@@ -30,6 +30,8 @@ cd ~
 
 sudo service mysql restart
 
+echo "creating mysql table and loading data into mysql"
+
 mysql -u root <<'EOF'
 create database book_reviews;
 use book_reviews;
@@ -48,6 +50,7 @@ PRIMARY KEY (id) );
 load data local infile "kindle_reviews.csv" into table kindle_reviews fields terminated by ',' enclosed by '"' escaped by '"' lines terminated by '\n' ignore 1 rows;
 EOF
 
+echo "Finished seting up MySQL server"
 
 # create database book_reviews
 # use book_reviews

@@ -33,7 +33,7 @@ db.createCollection('logs')
 quit()
 EOF
 
-
+echo "Finished setting up MongoDB server"
 
 #sudo cat /var/log/mongodb/mongod.log  
 
