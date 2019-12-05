@@ -11,7 +11,7 @@ rm -rf *.zip
 
 
 
-sudo apt-get install mysql-server
+sudo apt-get -y install mysql-server
 
 
 sudo mysql -e 'update mysql.user set plugin = "mysql_native_password" where
