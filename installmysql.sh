@@ -1,6 +1,6 @@
 #!/bin/bash
 
-
+cd ~
 sudo apt-get update
 sudo apt install unzip
 wget -c https://istd50043.s3-ap-southeast-1.amazonaws.com/kindle-reviews.zip -O kindle-reviews.zip
@@ -10,7 +10,6 @@ rm -rf kindle_reviews.json
 wget -c https://istd50043.s3-ap-southeast-1.amazonaws.com/meta_kindle_store.zip -O meta_kindle_store.zip
 unzip meta_kindle_store.zip
 rm -rf *.zip
-
 
 
 
@@ -32,7 +31,6 @@ echo "Updated mysql bind address in /etc/mysql/my.cnf to 0.0.0.0 to allow extern
 cd ~
 
 sudo service mysql restart
-
 
 mysql -u root <<'EOF'
 create database book_reviews;
