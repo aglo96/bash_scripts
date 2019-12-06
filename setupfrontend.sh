@@ -22,8 +22,6 @@ EOF
 
 sudo service nginx restart
 
-git clone https://github.com/skimkoh/bigdata-goodreads.git
-
 cd bigdata-goodreads
 
 base_api=$(sed -n 's/backend \(.*\)/\1/p' < ec2InstancesProductionSystem.txt | awk '{print $2}')
