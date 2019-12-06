@@ -33,3 +33,4 @@ pip install -r requirements.txt
 screen -d -m gunicorn -w 4 application
 
 echo "backend server is up"
+
