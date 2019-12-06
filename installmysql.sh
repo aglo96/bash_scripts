@@ -22,7 +22,6 @@ sudo mysql -e 'flush privileges'
 
 
 #need to set binding to 0.0.0.0
-# cd /etc/mysql/mysql.conf.d
 echo "Updating mysql configs in /etc/mysql/my.cnf."
 sudo sed -i "s/.*bind-address.*/bind-address = 0.0.0.0/" /etc/mysql/mysql.conf.d/mysqld.cnf
 echo "Updated mysql bind address in /etc/mysql/my.cnf to 0.0.0.0 to allow external connections."
