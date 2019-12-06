@@ -33,9 +33,9 @@ echo "Updated app to point to correct backend server"
 
 
 cd frontend
+echo "installing NPM dependencies, please wait a few minutes"
 npm install  #npm install dosen't work on t2.micro. Not enough RAM
-npm start
-
+screen -d -m npm start
 
 
 echo "frontend server is up"
