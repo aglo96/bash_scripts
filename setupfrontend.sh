@@ -1,26 +1,27 @@
-sudo apt-get update
-sudo apt-get -y install nodejs npm
+# sudo apt-get update
+# sudo apt-get -y install nodejs npm
 
-sudo apt-get -y install nginx 
+# sudo apt-get -y install nginx 
 
-echo "Setting up nginx"
-sudo chmod o+rw /etc/nginx/sites-enabled
+# echo "Setting up nginx"
+# sudo chmod o+rw /etc/nginx/sites-enabled
 
-ipaddress=$(curl http://checkip.amazonaws.com)
+# ipaddress=$(curl http://checkip.amazonaws.com)
 
 
-cat > /etc/nginx/sites-enabled/frontendapp <<EOF 
-server {
-        listen 80;
-        server_name $ipaddress;
+# cat > /etc/nginx/sites-enabled/frontendapp <<EOF 
+# server {
+#         listen 80;
+#         server_name $ipaddress;
 
-        location / {
-                proxy_pass http://127.0.0.1:3000;
-        }
-}
-EOF
+#         location / {
+#                 proxy_pass http://127.0.0.1:3000;
+#         }
+# }
+# EOF
 
-sudo service nginx restart
+# sudo service nginx restart
+
 
 cd bigdata-goodreads
 
