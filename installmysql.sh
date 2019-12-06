@@ -30,7 +30,7 @@ cd ~
 
 sudo service mysql restart
 
-echo "creating mysql table and loading data into mysql"
+echo "creating mysql table and loading data into mysql, please wait a few seconds"
 
 mysql -u root <<'EOF'
 create database book_reviews;

@@ -2,7 +2,6 @@
 
 cd ~
 sudo apt-get update
-git clone https://github.com/skimkoh/bigdata-goodreads.git
 
 sudo apt-get -y install nginx 
 sudo apt-get -y install gunicorn3
