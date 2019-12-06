@@ -25,12 +25,13 @@ EOF
 
 sudo service nginx restart
 
-
+screen -S run_in_background
 cd bigdata-goodreads/backend
 sudo apt-get -y install python3-venv
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 gunicorn -w 4 application
+screen -d
 
 echo "backend server is up"
