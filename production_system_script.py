@@ -1,28 +1,31 @@
 import boto3
 import json
-import pprint
 import time
 from botocore.exceptions import ClientError 
 from fabric import Connection
 import argparse
 
 
-# def configure_aws(accesskey, secretkey):
-#     c = Connection("localhost")
-#     c.local("echo asdad")
-#     c.local("aws configure")
-
 
 def list_ec2_instances():
-    ec2 = boto3.client('ec2')
-    instances = {}
-    res = ec2.describe_instances()
-    pprint.pprint(res['Reservations'][4]) #has 5 diff instances
+    ec2_dns_dict = {}
+    ec2 = boto3.resource('ec2')
+    for instance in ec2.instances.all():
+        if instance.state["Name"] == "running" and instance.tags != None:
+            for tag in instance.tags:
+                ec2_dns_dict[tag["Key"]] = tag["Value"]
+    
+    print(ec2_dns_dict)
+    # instances = {}
+    # res = ec2.describe_instances()
+    # pprint.pprint(res['Reservations'][4]) #has 5 diff instances
     # for r in res['Reservations']:
     #     for ins in r['Instances']:
     #         if ins['State']['Name'] == 'running':
     #             instances[ins['InstanceId']] = ins['PublicIpAddress']
     # print(instances)
+    
+    
  
 def name_ec2_instance():
     ec2 = boto3.client('ec2')
@@ -85,7 +88,8 @@ def create_ec2_instances(security_group_name):
     print(ec2_instances)
     print("Waiting for instances to be ready")
     
-    client = boto3.client('ec2')
+    client = boto3.client('ec2')    
+    #wait for all instances to be running
     waiter = client.get_waiter('instance_running')
     waiter.wait(
     InstanceIds=ec2_id_list,
@@ -111,8 +115,16 @@ def create_ec2_instances(security_group_name):
         elif instance.instance_id == ec2_instances["frontend"]:
             ec2_public_dns["frontend"] = [instance.public_dns_name, instance.public_ip_address]
     
-
-
+    
+    #create tags for each ec2 instance
+    mysqlDNS = ec2_public_dns["mysql"][0]
+    mongoDNS = ec2_public_dns["mongodb"][0]
+    backendDNS = ec2_public_dns["backend"][0]
+    frontendDNS = ec2_public_dns["frontend"][0]
+    client.create_tags(Resources=[ec2_instances["mysql"]], Tags=[{'Key':'mysql', 'Value':mysqlDNS}])
+    client.create_tags(Resources=[ec2_instances["mongodb"]], Tags=[{'Key':'mongodb', 'Value':mongoDNS}])
+    client.create_tags(Resources=[ec2_instances["frontend"]], Tags=[{'Key':'frontend', 'Value':frontendDNS}])
+    client.create_tags(Resources=[ec2_instances["backend"]], Tags=[{'Key':'backend', 'Value':backendDNS}])
 
 
 def write_to_file(ec2_public_dns):
@@ -167,8 +179,8 @@ if __name__ == "__main__":
     # parser.add_argument('-s', type=str, dest='secretkey', required=True, help='enter aws secret key')
     parser.add_argument('-k', type=str, dest='keypair', required=True, help='enter filepath to ec2 keypair')
     args = parser.parse_args()
-    # configure_aws(args.accesskey, args.secretkey)
-    
+
+    #TODO: automate aws configure
     
     # SECURITY_GROUP_NAME = "ProductionSystem"
     # create_security_group(SECURITY_GROUP_NAME)
@@ -184,6 +196,8 @@ if __name__ == "__main__":
     # setup_ec2_instance("mongodb", ec2_public_dns, keypair_file)
     # setup_ec2_instance("backend", ec2_public_dns, keypair_file)
     # setup_ec2_instance("frontend", ec2_public_dns, keypair_file)
+    list_ec2_instances()
 
-    terminate_ec2_instances()
+
+    # terminate_ec2_instances()
 #"/mnt/c/Users/AG/Desktop/test1.pem"
